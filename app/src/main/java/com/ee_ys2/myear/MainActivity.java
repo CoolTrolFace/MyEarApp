@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.content.pm.PackageManager;
+import android.media.AudioFormat;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -100,10 +101,19 @@ public class MainActivity extends AppCompatActivity {
                 fileDescriptor = parcelWrite.getFileDescriptor();
                 inputStream = new ParcelFileDescriptor.AutoCloseInputStream(parcelRead);
 
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                /*mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
                 mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                mediaRecorder.setOutputFile(fileDescriptor);*/
+
+
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(AudioFormat.ENCODING_PCM_16BIT);
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
                 mediaRecorder.setOutputFile(fileDescriptor);
+                mediaRecorder.setAudioChannels(4);
+                mediaRecorder.setAudioSamplingRate(48000);
+
                 try {
                     mediaRecorder.setPreviewDisplay(null);
                     mediaRecorder.prepare();
