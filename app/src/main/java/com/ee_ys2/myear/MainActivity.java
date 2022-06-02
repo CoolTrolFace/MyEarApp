@@ -101,17 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 fileDescriptor = parcelWrite.getFileDescriptor();
                 inputStream = new ParcelFileDescriptor.AutoCloseInputStream(parcelRead);
 
-                /*mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
                 mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                mediaRecorder.setOutputFile(fileDescriptor);*/
-
-
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                mediaRecorder.setOutputFormat(AudioFormat.ENCODING_PCM_16BIT);
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
                 mediaRecorder.setOutputFile(fileDescriptor);
-                mediaRecorder.setAudioChannels(4);
+                mediaRecorder.setAudioChannels(2);
                 mediaRecorder.setAudioSamplingRate(48000);
 
                 try {
@@ -121,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 mediaRecorder.start();
-
 
                 setButtonRecording();
                 recordingState=RecordingState.RECORDING;
@@ -156,17 +149,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 lastRecord=System.currentTimeMillis();
             }else{
-
                 try {
                     read = inputStream.read(data, 0, data.length);
                     byteArrayOutputStream.write(data, 0, read);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-
-
                 switch(infoText.length()){
                     case 10:
                         infoText.setText("Recording..");
